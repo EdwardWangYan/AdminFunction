@@ -25,25 +25,25 @@ public abstract class AbstractService<T> implements Service<T> {
         modelClass = (Class<T>) pt.getActualTypeArguments()[0];
     }
 
-    public void save(T model) {
+    public int save(T model) {
         DaoSupports.Property(model);
-        mapper.insertSelective(model);
+        return mapper.insertSelective(model);
     }
 
-    public void save(List<T> models) {
-        mapper.insertList(models);
+    public int save(List<T> models) {
+        return mapper.insertList(models);
     }
 
-    public void deleteById(Integer id) {
-        mapper.deleteByPrimaryKey(id);
+    public int deleteById(String id) {
+        return mapper.deleteByPrimaryKey(id);
     }
 
-    public void deleteByIds(String ids) {
-        mapper.deleteByIds(ids);
+    public int deleteByIds(String ids) {
+        return mapper.deleteByIds(ids);
     }
 
-    public void update(T model) {
-        mapper.updateByPrimaryKeySelective(model);
+    public int update(T model) {
+        return mapper.updateByPrimaryKeySelective(model);
     }
 
     public T findById(Integer id) {
