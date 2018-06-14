@@ -126,7 +126,7 @@ public class ShiroConfig {
 
 	private static void addDefaultAnonUrl(List<String> anonUrl) {
 		anonUrl.add("/**/favicon.ico");
-		anonUrl.add("/tuser/**");
+		anonUrl.add("/sysuser/**");
 	}
 
 	private static void addAnonUrl4Test(List<String> anonUrl) {

@@ -25,7 +25,7 @@ public class DaoSupports {
         //获取创建时间
         Class c = obj.getClass();
         // 获取Id
-        Field f = c.getDeclaredField("createdTime");
+        Field f = c.getDeclaredField("createDate");
 
         // 取消语言访问检查
         f.setAccessible(true);
@@ -39,7 +39,7 @@ public class DaoSupports {
 
         Class c = obj.getClass();
         // 获取删除标记
-        Field f = c.getDeclaredField("deletedFlag");
+        Field f = c.getDeclaredField("delFlag");
 
         // 取消语言访问检查
         f.setAccessible(true);

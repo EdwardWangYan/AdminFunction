@@ -1,8 +1,8 @@
 package com.wy.integration.web;
 import com.wy.integration.core.Result;
 import com.wy.integration.core.ResultGenerator;
-import com.wy.integration.model.TUser;
-import com.wy.integration.service.TUserService;
+import com.wy.integration.model.SysMenu;
+import com.wy.integration.service.SysMenuService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
@@ -17,43 +17,43 @@ import java.util.List;
 
 /**
 *
-* Created by Edward on 2018/05/23.
+* Created by Edward on 2018/06/10.
 */
 @RestController
-@RequestMapping("tuser")
-public class TUserController {
+@RequestMapping("sysmenu")
+public class SysMenuController {
     @Resource
-    private TUserService tUserService;
+    private SysMenuService sysMenuService;
 
     @ApiOperation("")
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public RestfulApiResponse<Integer> add(TUser tUser) {
-        return RestfulApiResponse.success("",  tUserService.save(tUser));
+    public RestfulApiResponse<Integer> add(SysMenu sysMenu) {
+        return RestfulApiResponse.success("",  sysMenuService.save(sysMenu));
     }
 
     @ApiOperation("")
     @RequestMapping(value = "delete", method = RequestMethod.DELETE)
     public RestfulApiResponse<Integer> delete(@RequestParam String id) {
-        return RestfulApiResponse.success("", tUserService.deleteById(id));
+        return RestfulApiResponse.success("", sysMenuService.deleteById(id));
     }
 
     @ApiOperation("")
     @RequestMapping(value = "update", method = RequestMethod.PUT)
-    public RestfulApiResponse<Integer>  update(TUser tUser) {
+    public RestfulApiResponse<Integer>  update(SysMenu sysMenu) {
 
-            return RestfulApiResponse.success("", tUserService.update(tUser));
+            return RestfulApiResponse.success("", sysMenuService.update(sysMenu));
     }
 
     @ApiOperation("")
     @RequestMapping(value = "detail", method = RequestMethod.GET)
-    public RestfulApiResponse<TUser> detail(@RequestParam Integer id) {
-            return RestfulApiResponse.success("", tUserService.findById(id));
+    public RestfulApiResponse<SysMenu> detail(@RequestParam Integer id) {
+            return RestfulApiResponse.success("", sysMenuService.findById(id));
     }
     @ApiOperation("")
     @RequestMapping(value = "list", method = RequestMethod.GET)
     public RestfulApiResponse<PageInfo> list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);
-        List<TUser> list = tUserService.findAll();
+        List<SysMenu> list = sysMenuService.findAll();
         PageInfo pageInfo = new PageInfo(list);
         return RestfulApiResponse.success("", pageInfo);
     }
