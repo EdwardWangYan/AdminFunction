@@ -1,6 +1,6 @@
 package com.wy.integration.exception;
 
-import com.alibaba.druid.wall.violation.ErrorCode;
+import com.wy.integration.exception.ErrCode.ErrorCode;
 
 public class BizException extends RuntimeException {
     private ErrorCode errorCode;

@@ -42,7 +42,7 @@ public class ${modelNameUpperCamel}Controller {
 
     @ApiOperation("")
     @RequestMapping(value = "detail", method = RequestMethod.GET)
-    public Result detail(@PathVariable Integer id) {
+    public Result detail(@PathVariable String id) {
         ${modelNameUpperCamel} ${modelNameLowerCamel} = ${modelNameLowerCamel}Service.findById(id);
         return ResultGenerator.genSuccessResult(${modelNameLowerCamel});
     }

@@ -26,11 +26,11 @@ public class SysUserController {
     @Resource
     private SysUserService sysUserService;
 
-/*    @ApiOperation("")
+ @ApiOperation("注册")
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public RestfulApiResponse<Integer> add(@Valid @RequestBody SysUserAddDto userAddDto,Errors errors) {
-        return RestfulApiResponse.success("",  sysUserService.save(sysUser));
-    }*/
+        return RestfulApiResponse.success("",  sysUserService.save(userAddDto));
+    }
 
     @ApiOperation("")
     @RequestMapping(value = "delete", method = RequestMethod.DELETE)

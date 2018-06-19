@@ -11,14 +11,16 @@ import java.util.HashMap;
  */
 public enum CMMErrorCode implements ErrorCode {
     
-
-    SCMPRODUCTQUANTITY_NOT_FOUND_ERROR("4016");
+    //用户
+    USER_TITLE_IS_EXISTS("1000"),
+    //错误
+     EROR("9999");
 
     private static HashMap<ErrorCode, String> map = new HashMap<>();
 
     static {
 
-        map.put(CMMErrorCode.SCMPRODUCTQUANTITY_NOT_FOUND_ERROR, "价格段信息不存在");
+        map.put(CMMErrorCode.USER_TITLE_IS_EXISTS, "用户标题已经存在");
 
     }
 
