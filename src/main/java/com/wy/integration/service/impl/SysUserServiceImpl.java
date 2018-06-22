@@ -36,7 +36,7 @@ public class SysUserServiceImpl extends AbstractService<SysUser> implements SysU
     }
     //验证用户登录名是否重复
     protected void throwIfExistAccount(String title) {
-        if (existTitle(title)==null) {
+        if (existTitle(title)!=null) {
             throw new ResponseException(CMMErrorCode.USER_TITLE_IS_EXISTS);
         }
     }
@@ -45,7 +45,7 @@ public class SysUserServiceImpl extends AbstractService<SysUser> implements SysU
 
     //验证用户邮箱是否重复
     protected void throwIfExistEmail(String email) {
-        if (existEmail(email)==null) {
+        if (existEmail(email)!=null) {
             throw new ResponseException(CMMErrorCode.USER_TITLE_IS_EXISTS);
         }
     }
@@ -55,7 +55,7 @@ public class SysUserServiceImpl extends AbstractService<SysUser> implements SysU
     }
     //验证用户手机是否重复
     protected void throwIfExistTel(String tel) {
-        if (existTel(tel)==null) {
+        if (existTel(tel)!=null) {
             throw new ResponseException(CMMErrorCode.USER_TITLE_IS_EXISTS);
         }
     }
@@ -68,6 +68,7 @@ public class SysUserServiceImpl extends AbstractService<SysUser> implements SysU
     /**
      * 验证商品是否重复  转化实体和模型
      */
+
     private SysUser verifyCreateDto(SysUserAddDto dto) {
         throwIfExistAccount(dto.getLoginName());
         SysUser sysUser=new SysUser();
