@@ -46,7 +46,7 @@ public class ${modelNameUpperCamel}Controller {
 
     @ApiOperation("")
     @RequestMapping(value = "detail", method = RequestMethod.GET)
-    public RestfulApiResponse<${modelNameUpperCamel}> detail(@RequestParam Integer id) {
+    public RestfulApiResponse<${modelNameUpperCamel}> detail(@RequestParam String id) {
             return RestfulApiResponse.success("", ${modelNameLowerCamel}Service.findById(id));
     }
     @ApiOperation("")

@@ -19,7 +19,7 @@ import static com.wy.integration.core.IntegrationConstant.*;
  */
 public class CodeGenerator {
     //JDBC配置，请修改为你项目的实际配置
-    private static final String JDBC_URL = "jdbc:mysql://192.168.2.77:3306/cmm";
+    private static final String JDBC_URL = "jdbc:mysql://39.105.98.39:3306/adminmanager";
     private static final String JDBC_USERNAME = "root";
     private static final String JDBC_PASSWORD = "123456";
     private static final String JDBC_DIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
@@ -38,7 +38,7 @@ public class CodeGenerator {
     private static final String DATE = new SimpleDateFormat("yyyy/MM/dd").format(new Date());//@date
 
     public static void main(String[] args) {
-        genCode("");
+        genCode("sys_group","sys_group_ur","sys_log","sys_menu","sys_rescource","sys_role","sys_role_menu","sys_user","sys_user_role");
         //genCodeByCustomModelName("输入表名","输入自定义Model名称");
     }
 

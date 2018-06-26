@@ -1,13 +1,17 @@
 package com.wy.integration.web;
-import javax.validation.Valid;
+import com.wy.integration.annotation.SysLog;
+import com.wy.integration.core.Result;
+import com.wy.integration.core.ResultGenerator;
 import com.wy.integration.dto.SysUserAddDto;
+import com.wy.integration.dto.contion.SysUserContionDto;
 import com.wy.integration.model.SysUser;
 import com.wy.integration.service.SysUserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import com.wy.integration.utils.ResPonseUtils.RestfulApiResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,45 +21,45 @@ import java.util.List;
 
 /**
 *
-* Created by Edward on 2018/06/10.
+* Created by Edward on 2018/06/26.
 */
 @RestController
 @RequestMapping("sysuser")
-@Api(description = "与用户相关的api")
 public class SysUserController {
     @Resource
     private SysUserService sysUserService;
 
- @ApiOperation("注册")
+
+
+    @ApiOperation("用户新增")
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public RestfulApiResponse<Integer> add(@Valid @RequestBody SysUserAddDto userAddDto,Errors errors) {
-        return RestfulApiResponse.success("",  sysUserService.save(userAddDto));
+    @SysLog("用户新增")
+    public RestfulApiResponse<Integer> add(@RequestBody SysUserAddDto sysUser, Errors errors) {
+        return RestfulApiResponse.success("新增成功",  sysUserService.add(sysUser));
     }
 
-    @ApiOperation("")
+    @ApiOperation("删除用户")
     @RequestMapping(value = "delete", method = RequestMethod.DELETE)
     public RestfulApiResponse<Integer> delete(@RequestParam String id) {
-        return RestfulApiResponse.success("", sysUserService.deleteById(id));
+        return RestfulApiResponse.success("删除用户成功", sysUserService.deleteBy(id));
     }
 
-    @ApiOperation("")
+    @ApiOperation("更新用户")
     @RequestMapping(value = "update", method = RequestMethod.PUT)
-    public RestfulApiResponse<Integer>  update(SysUser sysUser) {
+    public RestfulApiResponse<Integer>  update(@RequestBody SysUserAddDto sysUser, Errors errors) {
 
-            return RestfulApiResponse.success("", sysUserService.update(sysUser));
+            return RestfulApiResponse.success("更新用户成功", sysUserService.updateUser(sysUser));
     }
 
-    @ApiOperation("")
+    @ApiOperation("获取用户细节")
     @RequestMapping(value = "detail", method = RequestMethod.GET)
-    public RestfulApiResponse<SysUser> detail(@RequestParam Integer id) {
-            return RestfulApiResponse.success("", sysUserService.findById(id));
+    public RestfulApiResponse<SysUser> detail(@RequestParam String id) {
+            return RestfulApiResponse.success("获取用户详情成功", sysUserService.findById(id));
     }
-    @ApiOperation("")
+
+    @ApiOperation("根据条件 获取用户列表")
     @RequestMapping(value = "list", method = RequestMethod.GET)
-    public RestfulApiResponse<PageInfo> list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
-        PageHelper.startPage(page, size);
-        List<SysUser> list = sysUserService.findAll();
-        PageInfo pageInfo = new PageInfo(list);
-        return RestfulApiResponse.success("", pageInfo);
+    public RestfulApiResponse<PageInfo> list(@Valid @ModelAttribute SysUserContionDto dto,Errors errors) {
+        return RestfulApiResponse.success("获取用户成功", sysUserService.findByContion(dto));
     }
 }

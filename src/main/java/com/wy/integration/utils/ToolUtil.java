@@ -1,6 +1,5 @@
 package com.wy.integration.utils;
 
-import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
 import com.wy.integration.model.SysUser;
 import org.apache.commons.lang3.StringUtils;
