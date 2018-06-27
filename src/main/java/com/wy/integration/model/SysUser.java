@@ -1,10 +1,12 @@
 package com.wy.integration.model;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
-import javax.persistence.*;
 
 @Table(name = "sys_user")
-public class SysUser {
+public class SysUser  {
     /**
      * 用户ID
      */
@@ -48,7 +50,7 @@ public class SysUser {
     /**
      * 是否锁定
      */
-    private Byte locked;
+    private Integer locked;
 
     @Column(name = "create_date")
     private Date createDate;
@@ -207,21 +209,11 @@ public class SysUser {
         this.email = email;
     }
 
-    /**
-     * 获取是否锁定
-     *
-     * @return locked - 是否锁定
-     */
-    public Byte getLocked() {
+    public Integer getLocked() {
         return locked;
     }
 
-    /**
-     * 设置是否锁定
-     *
-     * @param locked 是否锁定
-     */
-    public void setLocked(Byte locked) {
+    public void setLocked(Integer locked) {
         this.locked = locked;
     }
 

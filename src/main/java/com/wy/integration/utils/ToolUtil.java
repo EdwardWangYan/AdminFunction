@@ -1,7 +1,9 @@
 package com.wy.integration.utils;
 
+import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
 import com.wy.integration.model.SysUser;
+import com.xiaoleilu.hutool.http.HttpUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -227,6 +229,18 @@ public class ToolUtil {
 		return map;
 	}
 
+	public static Map<String,String> getAddressByIP(String ip) {
+		if("0:0:0:0:0:0:0:1".equals(ip)){
+			ip = "0.0.0.0";
+		}
+		Map<String,String> map = Maps.newHashMap();
+		StringBuilder sb = new StringBuilder("http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&ip=");
+		sb.append(ip);
+		String result= HttpUtil.get(sb.toString(), "UTF-8");
+		LOGGER.info(result);
+		Map resultMap = JSON.parseObject(result,Map.class);
+		return resultMap;
+	}
 
 
 	public static void main(String args[]) throws Exception {

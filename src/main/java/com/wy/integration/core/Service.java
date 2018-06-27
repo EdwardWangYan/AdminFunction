@@ -2,6 +2,7 @@ package com.wy.integration.core;
 
 import org.apache.ibatis.exceptions.TooManyResultsException;
 import tk.mybatis.mapper.entity.Condition;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
@@ -9,6 +10,9 @@ import java.util.List;
  * Service 层 基础接口，其他Service 接口 请继承该接口
  */
 public interface Service<T> {
+    T findByIdDel(String id);//进行逻辑查询
+    List<T> findByConditionDel(Condition conditio, Example.Criteria createCriteria);//逻辑查询
+    int deleteBy(String id);//适用于逻辑删除
     int save(T model);//持久化
     int save(List<T> models);//批量持久化
     int deleteById(String id);//通过主鍵刪除

@@ -1,0 +1,14 @@
+#公共配置
+server:
+    port: 9006
+    tomcat:
+      uri-encoding: UTF-8
+
+spring:
+  #激活哪一个环境的配置文件
+  profiles:
+    active: dev
+
+
+
+

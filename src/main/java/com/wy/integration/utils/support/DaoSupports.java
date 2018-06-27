@@ -8,11 +8,13 @@ import java.lang.reflect.Field;
 import java.util.Date;
 
 public class DaoSupports {
+
     public DaoSupports() {
 
     }
 
-    public static void existIdIsNull(Object obj){
+    //判断id是否为空
+    private  static void existIdIsNull(Object obj){
         try {
         Class c = obj.getClass();
         // 获取Id
@@ -21,13 +23,13 @@ public class DaoSupports {
         // 取消语言访问检查
         f.setAccessible(true);
         Object val = f.get(obj);
-        if(val==null||val.equals(""))  throw new ResponseException(CMMErrorCode.ID_IS_NULL);
+        if(val==null||val.equals(""))  throw new ResponseException(CMMErrorCode.ENTITY_IS_NULL);
         } catch (NoSuchFieldException | SecurityException | IllegalArgumentException  | IllegalAccessException e) {
             e.getMessage();
         }
     }
 
-    //新怎初始化
+    //新增初始化
     public static void addProperty(Object obj) {
         try {
             setIdProperty(obj);
@@ -38,8 +40,14 @@ public class DaoSupports {
         }
     }
 
+    //验证实体是否为空
+    public static void entityIsNotNoll(Object obj){
+        if(obj==null) throw new ResponseException(CMMErrorCode.ENTITY_IS_NULL);
+        existIdIsNull(obj);
+    }
     //更新初始化
     public static void updateProperty(Object obj) {
+        entityIsNotNoll(obj);
         try {
             updateTime(obj);
         } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
@@ -48,8 +56,10 @@ public class DaoSupports {
     }
 
 
+
     //逻辑删除初始化
     public static void deleteProperty(Object obj) {
+        entityIsNotNoll(obj);
         try {
         Class c = obj.getClass();
         // 获取删除标记
@@ -125,4 +135,31 @@ public class DaoSupports {
         // 给Id赋值
         f.set(obj, id);
     }
+
+    //根据id,查找逻辑删除
+    public static void findById(Object obj,String value) {
+        try {
+            findSetId(obj,value);
+            adddeletedFlag(obj);
+        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+            e.getMessage();
+        }
+
+    }
+
+
+    // 查找逻辑删除 给id赋值
+    private static void findSetId(Object obj,String value) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+
+        Class c = obj.getClass();
+        // 获取Id
+        Field f = c.getDeclaredField("id");
+
+        // 取消语言访问检查
+        f.setAccessible(true);
+
+        // 给Id赋值
+        f.set(obj, value);
+    }
+
 }

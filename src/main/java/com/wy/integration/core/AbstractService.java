@@ -1,10 +1,12 @@
 package com.wy.integration.core;
 
 
+import com.wy.integration.constants.ConstantsFlag;
 import com.wy.integration.utils.support.DaoSupports;
 import org.apache.ibatis.exceptions.TooManyResultsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.entity.Condition;
+import tk.mybatis.mapper.entity.Example;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -20,21 +22,24 @@ public abstract class AbstractService<T> implements Service<T> {
 
     private Class<T> modelClass;    // 当前泛型真实类型的Class
 
+
+
     public AbstractService() {
         ParameterizedType pt = (ParameterizedType) this.getClass().getGenericSuperclass();
         modelClass = (Class<T>) pt.getActualTypeArguments()[0];
     }
 
-    public void existIdIsNull(Object obj){
-        DaoSupports.existIdIsNull(obj);
-    }
+
 
     public int save(T model) {
         DaoSupports.addProperty(model);
         return mapper.insertSelective(model);
     }
 
-    public int deleteBy(T model) {
+
+
+    public int deleteBy(String id) {
+        T model= this.findByIdDel(id);
         DaoSupports.deleteProperty(model);
         return mapper.updateByPrimaryKeySelective(model);
     } //适用于逻辑删除
@@ -57,14 +62,32 @@ public abstract class AbstractService<T> implements Service<T> {
         return mapper.updateByPrimaryKeySelective(model);
     }
 
+    //用户查找逻辑删除
+    public T findByIdDel(String id){
+        T model=this.newEntityInstance();
+        DaoSupports.findById(model,id);
+        T entity=mapper.selectOne(model);
+        DaoSupports.entityIsNotNoll(entity);
+        return entity;
+    }
+
     public T findById(String id) {
         return mapper.selectByPrimaryKey(id);
+    }
+
+    protected T newEntityInstance() {
+        try {
+           return  modelClass.newInstance();
+        } catch (Exception var2) {
+            var2.printStackTrace();
+            throw new RuntimeException(var2);
+        }
     }
 
     @Override
     public T findBy(String fieldName, Object value) throws TooManyResultsException {
         try {
-            T model = modelClass.newInstance();
+            T model=this.newEntityInstance();
             Field field = modelClass.getDeclaredField(fieldName);
             field.setAccessible(true);
             field.set(model, value);
@@ -78,8 +101,15 @@ public abstract class AbstractService<T> implements Service<T> {
         return mapper.selectByIds(ids);
     }
 
-    public List<T> findByCondition(Condition condition) {
+    //逻辑删除 走此接口
+    public List<T> findByConditionDel(Condition conditio, Example.Criteria createCriteria){
+        createCriteria.andEqualTo("delFlag", ConstantsFlag.IsDeleteFlag.NotDeleted.getValue());
+        return this.findByCondition(conditio);
+    }
 
+    //物理删除  走此接口
+    public List<T> findByCondition(Condition condition) {
+        condition.setOrderByClause("create_date DESC");
         return mapper.selectByCondition(condition);
     }
 
