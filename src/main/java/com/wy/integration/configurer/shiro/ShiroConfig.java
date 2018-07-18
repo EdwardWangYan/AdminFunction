@@ -129,6 +129,8 @@ public class ShiroConfig {
 		manager.setRedisManager(redisManager());
 		return manager;
 	}
+
+
 	@Bean
 	public RedisManager redisManager(){
 		RedisManager manager = new RedisManager();
