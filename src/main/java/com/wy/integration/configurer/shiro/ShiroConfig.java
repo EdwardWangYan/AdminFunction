@@ -105,6 +105,7 @@ public class ShiroConfig {
 		defaultWebSecurityManager.setCacheManager(cacheManager());
 		return defaultWebSecurityManager;
 	}
+	
 	@Bean
 	public SessionManager webSessionManager(){
 		DefaultWebSessionManager manager = new DefaultWebSessionManager();
@@ -225,6 +226,7 @@ public class ShiroConfig {
 
 	private static void addDefaultAnonUrl(List<String> anonUrl) {
 		anonUrl.add("/**/favicon.ico");
+		anonUrl.add("/syslog/**");
 		anonUrl.add("/sysuser/**");
 	}
 

@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  */
 @Service
 @Transactional
-public class SysLogServiceImpl extends AbstractService<SysLog> implements SysLogService {
+public class SysLogServiceImpl extends BaseService<SysLog> implements SysLogService {
     @Resource
     private SysLogMapper sysLogMapper;
 

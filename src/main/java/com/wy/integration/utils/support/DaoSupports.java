@@ -1,6 +1,7 @@
 package com.wy.integration.utils.support;
 
 
+import com.wy.integration.core.MySysUser;
 import com.wy.integration.exception.ErrCode.CMMErrorCode;
 import com.wy.integration.exception.ResponseException;
 
@@ -8,11 +9,43 @@ import java.lang.reflect.Field;
 import java.util.Date;
 
 public class DaoSupports {
-
     public DaoSupports() {
 
     }
 
+    public static Integer addOrgId(Object obj) {//添加机构主键
+        try {
+        if (MySysUser.getUser() == null) {
+
+                Class c = obj.getClass();
+                // 获取删除标记
+                Field f = c.getDeclaredField("orgId");
+                if(f==null) return 0;
+                // 取消语言访问检查
+                f.setAccessible(true);
+
+
+                // 设置删除标记
+                f.set(obj, "0");
+
+        }else{
+            Class c = obj.getClass();
+            // 获取删除标记
+            Field f = c.getDeclaredField("orgId");
+            if(f==null) return 0;
+            // 取消语言访问检查
+            f.setAccessible(true);
+
+
+            // 设置删除标记
+            f.set(obj, MySysUser.orgId());
+        }
+
+        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+            e.getMessage();
+        }
+        return 1;
+    }
     //判断id是否为空
     private  static void existIdIsNull(Object obj){
         try {
@@ -33,6 +66,7 @@ public class DaoSupports {
     public static void addProperty(Object obj) {
         try {
             setIdProperty(obj);
+            createdBy(obj);
             createdTime(obj);
             adddeletedFlag(obj);
         } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
@@ -50,6 +84,7 @@ public class DaoSupports {
         entityIsNotNoll(obj);
         try {
             updateTime(obj);
+            updateBy(obj);
         } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
             e.getMessage();
         }
@@ -89,6 +124,70 @@ public class DaoSupports {
         Date date = new Date();
         // 给更新时间赋值
         f.set(obj, date);
+    }
+
+    //创建者;
+    private static void createdBy(Object obj) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+        try {
+            if (MySysUser.getUser() == null) {
+
+                Class c = obj.getClass();
+                // 获取删除标记
+                Field f = c.getDeclaredField("createBy");
+                // 取消语言访问检查
+                f.setAccessible(true);
+
+
+                // 设置删除标记
+                f.set(obj, "0");
+
+            }else{
+                Class c = obj.getClass();
+                // 获取删除标记
+                Field f = c.getDeclaredField("createBy");
+                // 取消语言访问检查
+                f.setAccessible(true);
+
+
+                // 设置删除标记
+                f.set(obj, MySysUser.id());
+            }
+
+        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+            e.getMessage();
+        }
+    }
+
+    //创建者;
+    private static void updateBy(Object obj) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+        try {
+            if (MySysUser.getUser() == null) {
+
+                Class c = obj.getClass();
+                // 获取删除标记
+                Field f = c.getDeclaredField("updateBy");
+                // 取消语言访问检查
+                f.setAccessible(true);
+
+
+                // 设置删除标记
+                f.set(obj, "0");
+
+            }else{
+                Class c = obj.getClass();
+                // 获取删除标记
+                Field f = c.getDeclaredField("updateBy");
+                // 取消语言访问检查
+                f.setAccessible(true);
+
+
+                // 设置删除标记
+                f.set(obj, MySysUser.id());
+            }
+
+        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+            e.getMessage();
+        }
     }
 
     private static void updateTime(Object obj) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {

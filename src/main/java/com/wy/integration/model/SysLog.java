@@ -13,6 +13,9 @@ public class SysLog {
     @Id
     private String id;
 
+    @Column(name = "org_id")
+    private String orgId;
+
     private String type;
 
     private String title;
@@ -73,6 +76,14 @@ public class SysLog {
     private String response;
 
     private String exception;
+
+    public String getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(String orgId) {
+        this.orgId = orgId;
+    }
 
     /**
      * 获取编号

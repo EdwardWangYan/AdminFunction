@@ -27,9 +27,21 @@ public class MySysUser {
         return ShiroUser().getNickName();
     }
 
+    public static String orgId(){
+        return ShiroUser().getOrgId();
+    }
+
+
+    public static ShiroUser getUser(){
+        return ShiroUser();
+    }
+
     public static ShiroUser ShiroUser() {
         ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
         return user;
+    }
+
+    public MySysUser() {
     }
 
 

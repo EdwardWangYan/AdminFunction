@@ -30,6 +30,7 @@ import java.util.List;
 @RestController
 @RequestMapping("sysuser")
 public class SysUserController {
+
     @Resource
     private SysUserService sysUserService;
 
@@ -66,14 +67,12 @@ public class SysUserController {
 
     @ApiOperation("获取用户细节")
     @RequestMapping(value = "detail", method = RequestMethod.GET)
-    @SysLog("获取用户细节")
     public RestfulApiResponse<SysUser> detail(@RequestParam String id) {
             return RestfulApiResponse.success("获取用户详情成功", sysUserService.findByIdDel(id));
     }
 
     @ApiOperation("根据条件 获取用户列表")
     @RequestMapping(value = "list", method = RequestMethod.GET)
-    @SysLog("根据条件 获取用户列表")
     public RestfulApiResponse<PageInfo> list(@Valid @ModelAttribute SysUserContionDto dto,Errors errors) {
         return RestfulApiResponse.success("获取用户成功", sysUserService.findByContion(dto));
     }

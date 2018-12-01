@@ -1,7 +1,10 @@
-package com.wy.integration.core;
-
+package com.wy.integration.service.impl;
 
 import com.wy.integration.constants.ConstantsFlag;
+import com.wy.integration.core.AbstractService;
+import com.wy.integration.core.Mapper;
+import com.wy.integration.core.Service;
+import com.wy.integration.core.ServiceException;
 import com.wy.integration.utils.support.DaoSupports;
 import org.apache.ibatis.exceptions.TooManyResultsException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +16,9 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 /**
- * 基于通用MyBatis Mapper插件的Service接口的实现   此用于创建机构 用户等功能
- */
-public abstract class AbstractService<T> implements Service<T> {
-
+ * 加多一层 过滤层  用于其他的功能  添加当前创建者的机构主键
+ * **/
+public abstract class BaseService<T>  implements Service<T> {
     @Autowired
     protected Mapper<T> mapper;
 
@@ -24,7 +26,7 @@ public abstract class AbstractService<T> implements Service<T> {
 
 
 
-    public AbstractService() {
+    public BaseService() {
         ParameterizedType pt = (ParameterizedType) this.getClass().getGenericSuperclass();
         modelClass = (Class<T>) pt.getActualTypeArguments()[0];
     }
@@ -32,6 +34,7 @@ public abstract class AbstractService<T> implements Service<T> {
 
 
     public int save(T model) {
+        DaoSupports.addOrgId(model);//先给功能 添加当前登陆用户的机构主键
         DaoSupports.addProperty(model);
         return mapper.insertSelective(model);
     }
@@ -77,7 +80,7 @@ public abstract class AbstractService<T> implements Service<T> {
 
     protected T newEntityInstance() {
         try {
-           return  modelClass.newInstance();
+            return  modelClass.newInstance();
         } catch (Exception var2) {
             var2.printStackTrace();
             throw new RuntimeException(var2);

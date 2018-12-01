@@ -13,7 +13,8 @@ public class SysUserAddDto {
     @ApiModelProperty(value = "登名称")
     @NotBlank(message = "登名称不能为空")
     private String loginName;
-
+    @NotBlank(message = "机构主键")
+    private String orgId;//机构主键
     /**
      * 昵称
      */
@@ -49,6 +50,14 @@ public class SysUserAddDto {
      */
     @ApiModelProperty(value = "更新所用 主键")
     private String id;
+
+    public String getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(String orgId) {
+        this.orgId = orgId;
+    }
 
     public String getId() {
         return id;

@@ -12,7 +12,8 @@ public class SysUser  {
      */
     @Id
     private String id;
-
+    @Column(name = "org_id")
+    private String orgId;  //用户的机构主键 由当前登陆用户的机构id  传入。
     /**
      * 登录名
      */
@@ -68,6 +69,15 @@ public class SysUser  {
 
     @Column(name = "del_flag")
     private Integer delFlag;
+
+
+    public String getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(String orgId) {
+        this.orgId = orgId;
+    }
 
     /**
      * 获取用户ID

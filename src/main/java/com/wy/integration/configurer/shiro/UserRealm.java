@@ -51,7 +51,7 @@ public class UserRealm extends AuthorizingRealm {
 		if(ConstantsFlag.IsDeleteFlag.DELETED.getValue().intValue()==user.getLocked().intValue()) throw new LockedAccountException(); //帐号锁定
 		byte[] salt = Encodes.decodeHex(user.getSalt());
 		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
-				new ShiroUser(user.getId(),user.getLoginName(),user.getNickName(), user.getIcon()),
+				new ShiroUser(user.getId(),user.getLoginName(),user.getNickName(), user.getIcon(),user.getOrgId()),//获取更多的值
 				user.getPassword(), //密码
 				ByteSource.Util.bytes(salt),
 				getName()  //realm name
@@ -90,12 +90,14 @@ public class UserRealm extends AuthorizingRealm {
 		public String loginName;
 		public String nickName;
 		public String icon;
+		public String orgId;
 
-		public ShiroUser(String id, String loginName, String nickName,String icon) {
+		public ShiroUser(String id, String loginName, String nickName,String icon,String orgId) {
 			this.id = id;
 			this.loginName = loginName;
 			this.nickName = nickName;
 			this.icon=icon;
+			this.orgId=orgId;
 		}
 
 		public String getloginName() {
@@ -111,7 +113,13 @@ public class UserRealm extends AuthorizingRealm {
 			return id;
 		}
 
+		public String getOrgId() {
+			return orgId;
+		}
 
+		public void setOrgId(String orgId) {
+			this.orgId = orgId;
+		}
 
 		/**
 		 * 本函数输出将作为默认的<shiro:principal/>输出.
