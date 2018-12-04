@@ -1,11 +1,10 @@
 package com.wy.integration.web;
 import com.wy.integration.core.Result;
 import com.wy.integration.core.ResultGenerator;
-import com.wy.integration.model.SysLog;
-import com.wy.integration.service.SysLogService;
+import com.wy.integration.model.SysUserRoleRelation;
+import com.wy.integration.service.SysUserRoleRelationService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import com.wy.integration.utils.ResPonseUtils.RestfulApiResponse;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,34 +17,43 @@ import java.util.List;
 
 /**
 *
-* Created by Edward on 2018/06/26.
+* Created by Edward on 2018/12/04.
 */
 @RestController
-@RequestMapping("sysLog")
-@Api(description = "日志管理")
-public class SysLogController {
+@RequestMapping("sysuserrolerelation")
+public class SysUserRoleRelationController {
     @Resource
-    private SysLogService sysLogService;
+    private SysUserRoleRelationService sysUserRoleRelationService;
 
+    @ApiOperation("")
+    @RequestMapping(value = "add", method = RequestMethod.POST)
+    public RestfulApiResponse<Integer> add(SysUserRoleRelation sysUserRoleRelation) {
+        return RestfulApiResponse.success("",  sysUserRoleRelationService.save(sysUserRoleRelation));
+    }
 
     @ApiOperation("")
     @RequestMapping(value = "delete", method = RequestMethod.DELETE)
     public RestfulApiResponse<Integer> delete(@RequestParam String id) {
-        return RestfulApiResponse.success("", sysLogService.deleteById(id));
+        return RestfulApiResponse.success("", sysUserRoleRelationService.deleteById(id));
     }
 
+    @ApiOperation("")
+    @RequestMapping(value = "update", method = RequestMethod.PUT)
+    public RestfulApiResponse<Integer>  update(SysUserRoleRelation sysUserRoleRelation) {
 
+            return RestfulApiResponse.success("", sysUserRoleRelationService.update(sysUserRoleRelation));
+    }
 
-    @ApiOperation("获取日志详情 后台使用")
+    @ApiOperation("")
     @RequestMapping(value = "detail", method = RequestMethod.GET)
-    public RestfulApiResponse<SysLog> detail(@RequestParam String id) {
-            return RestfulApiResponse.success("", sysLogService.findById(id));
+    public RestfulApiResponse<SysUserRoleRelation> detail(@RequestParam String id) {
+            return RestfulApiResponse.success("", sysUserRoleRelationService.findById(id));
     }
-    @ApiOperation("获取日志列表  后台使用")
+    @ApiOperation("")
     @RequestMapping(value = "list", method = RequestMethod.GET)
     public RestfulApiResponse<PageInfo> list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);
-        List<SysLog> list = sysLogService.findAll();
+        List<SysUserRoleRelation> list = sysUserRoleRelationService.findAll();
         PageInfo pageInfo = new PageInfo(list);
         return RestfulApiResponse.success("", pageInfo);
     }

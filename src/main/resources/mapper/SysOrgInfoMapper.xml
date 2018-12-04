@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wy.integration.dao.SysOrgInfoMapper">
+  <resultMap id="BaseResultMap" type="com.wy.integration.model.SysOrgInfo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="org_type_code" jdbcType="VARCHAR" property="orgTypeCode" />
+    <result column="full_name" jdbcType="VARCHAR" property="fullName" />
+    <result column="short_name" jdbcType="VARCHAR" property="shortName" />
+    <result column="short_code" jdbcType="VARCHAR" property="shortCode" />
+    <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+    <result column="org_logo_id" jdbcType="VARCHAR" property="orgLogoId" />
+    <result column="website" jdbcType="VARCHAR" property="website" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="contact_person" jdbcType="VARCHAR" property="contactPerson" />
+    <result column="summary" jdbcType="VARCHAR" property="summary" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="del_flag" jdbcType="INTEGER" property="delFlag" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+  </resultMap>
+</mapper>

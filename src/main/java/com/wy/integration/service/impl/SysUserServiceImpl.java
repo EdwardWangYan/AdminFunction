@@ -15,6 +15,7 @@ import com.wy.integration.model.SysUser;
 import com.wy.integration.service.SysUserService;
 import com.wy.integration.core.AbstractService;
 import com.wy.integration.utils.ToolUtil;
+import com.wy.integration.utils.support.DaoSupports;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -96,6 +97,15 @@ public class SysUserServiceImpl extends AbstractService<SysUser> implements SysU
         SysUser sysUser= verifyCreateDto(userAddDto);
         ToolUtil.entryptPassword(sysUser);
         sysUser.setLocked(ConstantsFlag.IsDeleteFlag.NotDeleted.getValue());
+        DaoSupports.addOrgId(sysUser);//前端添加的用户 添加当前用户的机构主键
+        return save(sysUser);
+    }
+
+
+    @Override
+    public int initOrgUser(SysUser sysUser) {
+        ToolUtil.entryptPassword(sysUser);
+        sysUser.setLocked(ConstantsFlag.IsDeleteFlag.NotDeleted.getValue());
         return save(sysUser);
     }
 
@@ -121,7 +131,6 @@ public class SysUserServiceImpl extends AbstractService<SysUser> implements SysU
 
 
 
-    //逻辑删除 走此接口
     @Override
     public PageInfo findByContion(SysUserContionDto dto) {
         PageHelper.startPage(dto.getIndex(), dto.getSize());

@@ -10,6 +10,7 @@ import com.wy.integration.model.SysUser;
 import com.wy.integration.service.SysUserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import com.wy.integration.utils.ResPonseUtils.RestfulApiResponse;
 import org.slf4j.Logger;
@@ -28,7 +29,8 @@ import java.util.List;
 * Created by Edward on 2018/06/26.
 */
 @RestController
-@RequestMapping("sysuser")
+@RequestMapping("sysUser")
+@Api(description = "用户管理")
 public class SysUserController {
 
     @Resource
@@ -65,7 +67,7 @@ public class SysUserController {
             return RestfulApiResponse.success("更新用户成功", sysUserService.updateUser(sysUser));
     }
 
-    @ApiOperation("获取用户细节")
+    @ApiOperation("获取用户细节详情")
     @RequestMapping(value = "detail", method = RequestMethod.GET)
     public RestfulApiResponse<SysUser> detail(@RequestParam String id) {
             return RestfulApiResponse.success("获取用户详情成功", sysUserService.findByIdDel(id));

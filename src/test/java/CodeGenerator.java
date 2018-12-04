@@ -38,7 +38,7 @@ public class CodeGenerator {
     private static final String DATE = new SimpleDateFormat("yyyy/MM/dd").format(new Date());//@date
 
     public static void main(String[] args) {
-        genCode("sys_log");
+        genCode("sys_org_info","sys_permission","sys_resource","sys_role_info","sys_role_permission","sys_role_resource","sys_user_role_relation");
         //genCodeByCustomModelName("输入表名","输入自定义Model名称");
     }
 

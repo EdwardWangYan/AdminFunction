@@ -97,7 +97,7 @@ public class WebLogAspect {
         sysLog.setType(ToolUtil.isAjax(request)?"Ajax请求":"普通请求");
         // TODO: 2018/6/26 0026  用户  暂时不做
         if(MySysUser.ShiroUser() != null) {
-            sysLog.setUsername(StringUtils.isNotBlank(MySysUser.nickName()) ? MySysUser.nickName() : MySysUser.loginName());
+            sysLog.setUserName(StringUtils.isNotBlank(MySysUser.nickName()) ? MySysUser.nickName() : MySysUser.loginName());
         }
     }
 
@@ -117,7 +117,7 @@ public class WebLogAspect {
     public void doAfterReturning(Object ret) {
         // TODO: 2018/6/26 0026  用户  暂时不做
         if(MySysUser.ShiroUser() != null) {
-            sysLog.setUsername(StringUtils.isNotBlank(MySysUser.nickName()) ? MySysUser.nickName() : MySysUser.loginName());
+            sysLog.setUserName(StringUtils.isNotBlank(MySysUser.nickName()) ? MySysUser.nickName() : MySysUser.loginName());
         }
         String retString = JSONObject.toJSONString(ret);
         sysLog.setResponse(retString.length()>5000?JSONObject.toJSONString("请求参数数据过长不与显示"):retString);

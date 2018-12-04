@@ -228,8 +228,9 @@ public class ShiroConfig {
 
 	private static void addDefaultAnonUrl(List<String> anonUrl) {
 		anonUrl.add("/**/favicon.ico");
-		anonUrl.add("/syslog/**");
-		anonUrl.add("/sysuser/**");
+		anonUrl.add("/sysLog/**");
+		anonUrl.add("/sysUser/**");
+		anonUrl.add("/sysOrginfo/**");
 	}
 
 	private static void addAnonUrl4Test(List<String> anonUrl) {
