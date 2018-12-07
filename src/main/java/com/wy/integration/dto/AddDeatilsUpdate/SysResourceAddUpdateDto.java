@@ -1,55 +1,33 @@
-package com.wy.integration.model;
+package com.wy.integration.dto.AddDeatilsUpdate;
 
-import java.util.Date;
-import javax.persistence.*;
-
-@Table(name = "sys_resource")
-public class SysResource {
-    @Id
+import io.swagger.annotations.ApiModelProperty;
+/**
+ * @author : edward
+ * @since : 7/12/2018
+ */
+public class SysResourceAddUpdateDto {
+    @ApiModelProperty(value = "主键")
     private String id;
-
-    @Column(name = "parent_id")
+    @ApiModelProperty(value = "父节点")
     private String parentId;
-
-    @Column(name = "resource_title")
+    @ApiModelProperty(value = "资源名称")
     private String resourceTitle;
-
+    @ApiModelProperty(value = "资源简介")
     private String summary;
-
-    @Column(name = "resource_type")
-    private Integer resourceType;
-
-    @Column(name = "resource_icon")
+    @ApiModelProperty(value = "资源类型")
+    private Double resourceType;
+    @ApiModelProperty(value = "图标")
     private String resourceIcon;
-
-    @Column(name = "resource_url")
+    @ApiModelProperty(value = "资源URL")
     private String resourceUrl;
-
-    @Column(name = "resource_ext")
+    @ApiModelProperty(value = "资源扩展信息EXT")
     private String resourceExt;
-
-    @Column(name = "org_type")
+    @ApiModelProperty(value = "组织类型")
     private String orgType;
-
-    @Column(name = "orders_index")
-    private Integer ordersIndex;
-
+    @ApiModelProperty(value = "排序号")
+    private Double ordersIndex;
+    @ApiModelProperty(value = "说明")
     private String remark2;
-
-    @Column(name = "del_flag")
-    private Integer delFlag;
-
-    @Column(name = "create_date")
-    private Date createDate;
-
-    @Column(name = "create_by")
-    private String createBy;
-
-    @Column(name = "update_date")
-    private Date updateDate;
-
-    @Column(name = "update_by")
-    private String updateBy;
 
 
     public String getId() {
@@ -84,11 +62,11 @@ public class SysResource {
         this.summary = summary;
     }
 
-    public Integer getResourceType() {
+    public Double getResourceType() {
         return resourceType;
     }
 
-    public void setResourceType(Integer resourceType) {
+    public void setResourceType(Double resourceType) {
         this.resourceType = resourceType;
     }
 
@@ -124,11 +102,11 @@ public class SysResource {
         this.orgType = orgType;
     }
 
-    public Integer getOrdersIndex() {
+    public Double getOrdersIndex() {
         return ordersIndex;
     }
 
-    public void setOrdersIndex(Integer ordersIndex) {
+    public void setOrdersIndex(Double ordersIndex) {
         this.ordersIndex = ordersIndex;
     }
 
@@ -138,45 +116,5 @@ public class SysResource {
 
     public void setRemark2(String remark2) {
         this.remark2 = remark2;
-    }
-
-    public Integer getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(Integer delFlag) {
-        this.delFlag = delFlag;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
-    }
-
-    public Date getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
-    }
-
-    public String getUpdateBy() {
-        return updateBy;
-    }
-
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy;
     }
 }

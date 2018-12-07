@@ -1,7 +1,10 @@
 package com.wy.integration.exception;
 
 import java.util.HashMap;
-
+/**
+ * @author : edward
+ * @since : 7/12/2018
+ */
 public class RestResponse extends HashMap<String, Object> {
     public static RestResponse success(){
         return success("成功");

@@ -1,18 +1,22 @@
 package com.wy.integration.web;
-import com.wy.integration.core.Result;
-import com.wy.integration.core.ResultGenerator;
+import com.wy.integration.constants.ConstantsFlag;
+import com.wy.integration.dto.AddDeatilsUpdate.Resource.MenuCreateDto;
+import com.wy.integration.dto.AddDeatilsUpdate.Resource.ModuleCreateDto;
+import com.wy.integration.dto.AddDeatilsUpdate.Resource.OperationCreateDto;
+import com.wy.integration.dto.AddDeatilsUpdate.Resource.PageCreateDto;
 import com.wy.integration.model.SysResource;
 import com.wy.integration.service.SysResourceService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import com.wy.integration.utils.ResPonseUtils.RestfulApiResponse;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -20,16 +24,40 @@ import java.util.List;
 * Created by Edward on 2018/12/04.
 */
 @RestController
-@RequestMapping("sysresource")
+@RequestMapping("sysResource")
+@Api(description = "资源管理")
 public class SysResourceController {
     @Resource
     private SysResourceService sysResourceService;
 
-    @ApiOperation("")
-    @RequestMapping(value = "add", method = RequestMethod.POST)
-    public RestfulApiResponse<Integer> add(SysResource sysResource) {
-        return RestfulApiResponse.success("",  sysResourceService.save(sysResource));
+    @ApiOperation("创建模块")
+    @RequestMapping(value = "createModule", method = RequestMethod.POST)
+    //@RequiresRoles("superAdmin")
+    public RestfulApiResponse<String> createModule(@Valid @RequestBody ModuleCreateDto dto, Errors errors) {
+        return RestfulApiResponse.success("创建模块成功", sysResourceService.createResource(dto, ConstantsFlag.ResourceLevel.MODULE));
     }
+
+    @ApiOperation("创建菜单")
+    @RequestMapping(value = "createMenu", method = RequestMethod.POST)
+    //@RequiresRoles("superAdmin")
+    public RestfulApiResponse<String> createMenu(@Valid @RequestBody MenuCreateDto dto, Errors errors) {
+        return RestfulApiResponse.success("创建菜单成功", sysResourceService.createResource(dto, ConstantsFlag.ResourceLevel.MENU));
+    }
+
+    @ApiOperation("创建页面")
+    @RequestMapping(value = "createPage", method = RequestMethod.POST)
+    //@RequiresRoles("superAdmin")
+    public RestfulApiResponse<String> createPage(@Valid @RequestBody PageCreateDto dto, Errors errors) {
+        return RestfulApiResponse.success("创建页面成功", sysResourceService.createResource(dto, ConstantsFlag.ResourceLevel.PAGE));
+    }
+
+    @ApiOperation("创建操作")
+    @RequestMapping(value = "createOperation", method = RequestMethod.POST)
+    //@RequiresRoles("superAdmin")
+    public RestfulApiResponse<String> createOperation(@Valid @RequestBody OperationCreateDto dto, Errors errors) {
+        return RestfulApiResponse.success("创建操作成功", sysResourceService.createResource(dto, ConstantsFlag.ResourceLevel.OPERATION));
+    }
+
 
     @ApiOperation("")
     @RequestMapping(value = "delete", method = RequestMethod.DELETE)

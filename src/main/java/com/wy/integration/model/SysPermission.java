@@ -56,7 +56,7 @@ public class SysPermission {
      * 机构主键
      */
     @Column(name = "org_id")
-    private byte[] orgId;
+    private String orgId;
 
     /**
      * @return id
@@ -206,21 +206,12 @@ public class SysPermission {
         this.updateBy = updateBy;
     }
 
-    /**
-     * 获取机构主键
-     *
-     * @return org_id - 机构主键
-     */
-    public byte[] getOrgId() {
+
+    public String getOrgId() {
         return orgId;
     }
 
-    /**
-     * 设置机构主键
-     *
-     * @param orgId 机构主键
-     */
-    public void setOrgId(byte[] orgId) {
+    public void setOrgId(String orgId) {
         this.orgId = orgId;
     }
 }

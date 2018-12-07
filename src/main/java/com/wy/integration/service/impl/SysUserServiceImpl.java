@@ -6,12 +6,13 @@ import com.wy.integration.constants.ConstantsFlag;
 import com.wy.integration.core.MySysUser;
 import com.wy.integration.dao.SysUserMapper;
 import com.wy.integration.dto.OperatorLoginDto;
-import com.wy.integration.dto.SysUserAddDto;
-import com.wy.integration.dto.contion.SysUserContionDto;
+import com.wy.integration.dto.AddDeatilsUpdate.SysUserAddUpdateDto;
+import com.wy.integration.dto.condition.SysUserContionDto;
 import com.wy.integration.dto.returnlist.SysUserLoginSucessDto;
 import com.wy.integration.exception.ErrCode.CMMErrorCode;
 import com.wy.integration.exception.ResponseException;
 import com.wy.integration.model.SysUser;
+import com.wy.integration.service.SysUserRoleRelationService;
 import com.wy.integration.service.SysUserService;
 import com.wy.integration.core.AbstractService;
 import com.wy.integration.utils.ToolUtil;
@@ -21,6 +22,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Condition;
@@ -38,6 +40,8 @@ import java.util.List;
 public class SysUserServiceImpl extends AbstractService<SysUser> implements SysUserService {
     @Resource
     private SysUserMapper sysUserMapper;
+    @Autowired
+    private SysUserRoleRelationService sysUserRoleRelationService;
 
     /**
      * 验证商品名称是否重复
@@ -84,7 +88,7 @@ public class SysUserServiceImpl extends AbstractService<SysUser> implements SysU
      * 验证商品是否重复  转化实体和模型
      */
 
-    private SysUser verifyCreateDto(SysUserAddDto dto) {
+    private SysUser verifyCreateDto(SysUserAddUpdateDto dto) {
         throwIfExistAccount(dto.getLoginName());
         SysUser sysUser=new SysUser();
         BeanUtils.copyProperties(dto, sysUser);
@@ -93,11 +97,13 @@ public class SysUserServiceImpl extends AbstractService<SysUser> implements SysU
 
 
     @Override
-    public int add(SysUserAddDto userAddDto) {
+    public int add(SysUserAddUpdateDto userAddDto) {
         SysUser sysUser= verifyCreateDto(userAddDto);
         ToolUtil.entryptPassword(sysUser);
         sysUser.setLocked(ConstantsFlag.IsDeleteFlag.NotDeleted.getValue());
         DaoSupports.addOrgId(sysUser);//前端添加的用户 添加当前用户的机构主键
+        if(userAddDto.getRoleList()!=null&&userAddDto.getRoleList().size()>ConstantsFlag.FLAG.ZERO.getValue())
+            sysUserRoleRelationService.initUserRole(sysUser.getId(),userAddDto.getRoleList());
         return save(sysUser);
     }
 
@@ -112,7 +118,7 @@ public class SysUserServiceImpl extends AbstractService<SysUser> implements SysU
 
 
     //根据模型  做更新前准备
-    private SysUser getUser(SysUserAddDto userAddDto){
+    private SysUser getUser(SysUserAddUpdateDto userAddDto){
         //更新用户
         SysUser sysUser=new SysUser();
         BeanUtils.copyProperties(userAddDto, sysUser);
@@ -122,7 +128,7 @@ public class SysUserServiceImpl extends AbstractService<SysUser> implements SysU
 
     //更新用户操作
     @Override
-    public int updateUser(SysUserAddDto userAddDto) {
+    public int updateUser(SysUserAddUpdateDto userAddDto) {
         SysUser sysUser= getUser(userAddDto);
         ToolUtil.entryptPassword(sysUser);
         return update(sysUser);

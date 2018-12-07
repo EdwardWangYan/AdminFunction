@@ -1,20 +1,15 @@
 package com.wy.integration.web;
 import com.wy.integration.annotation.SysLog;
-import com.wy.integration.core.Result;
-import com.wy.integration.core.ResultGenerator;
 import com.wy.integration.dto.OperatorLoginDto;
-import com.wy.integration.dto.SysUserAddDto;
-import com.wy.integration.dto.contion.SysUserContionDto;
+import com.wy.integration.dto.AddDeatilsUpdate.SysUserAddUpdateDto;
+import com.wy.integration.dto.condition.SysUserContionDto;
 import com.wy.integration.dto.returnlist.SysUserLoginSucessDto;
 import com.wy.integration.model.SysUser;
 import com.wy.integration.service.SysUserService;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import com.wy.integration.utils.ResPonseUtils.RestfulApiResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +17,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.List;
 
 /**
 *
@@ -48,7 +42,7 @@ public class SysUserController {
     @ApiOperation("用户新增")
     @RequestMapping(value = "add", method = RequestMethod.POST)
     @SysLog("用户新增")
-    public RestfulApiResponse<Integer> add(@RequestBody SysUserAddDto sysUser, Errors errors) {
+    public RestfulApiResponse<Integer> add(@RequestBody SysUserAddUpdateDto sysUser, Errors errors) {
         return RestfulApiResponse.success("新增成功",  sysUserService.add(sysUser));
     }
 
@@ -62,7 +56,7 @@ public class SysUserController {
     @ApiOperation("更新用户")
     @RequestMapping(value = "update", method = RequestMethod.PUT)
     @SysLog("更新用户")
-    public RestfulApiResponse<Integer>  update(@RequestBody SysUserAddDto sysUser, Errors errors) {
+    public RestfulApiResponse<Integer>  update(@RequestBody SysUserAddUpdateDto sysUser, Errors errors) {
 
             return RestfulApiResponse.success("更新用户成功", sysUserService.updateUser(sysUser));
     }

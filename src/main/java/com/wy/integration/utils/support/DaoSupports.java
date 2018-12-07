@@ -13,6 +13,18 @@ public class DaoSupports {
 
     }
 
+    public static String getOrgId() {//添加机构主键
+            if (MySysUser.getUser() == null) {
+                // 设置删除标记
+               return "0";
+               }
+            return MySysUser.orgId();
+
+
+
+    }
+
+
     public static Integer addOrgId(Object obj) {//添加机构主键
         try {
         if (MySysUser.getUser() == null) {
@@ -260,5 +272,7 @@ public class DaoSupports {
         // 给Id赋值
         f.set(obj, value);
     }
+
+
 
 }

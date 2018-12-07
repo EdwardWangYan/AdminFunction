@@ -1,8 +1,11 @@
-package com.wy.integration.dto.contion.page;
+package com.wy.integration.dto.condition.page;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiParam;
-
+/**
+ * @author : edward
+ * @since : 7/12/2018
+ */
 public abstract class PaginationRequest {
     private static final int DEF_INDEX = 1;
     private static final int DEF_SIZE = 20;

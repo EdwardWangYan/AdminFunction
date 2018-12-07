@@ -15,7 +15,10 @@ import java.util.Properties;
 
 import static com.wy.integration.core.IntegrationConstant.*;
 
-
+/**
+ * @author : edward
+ * @since : 7/12/2018
+ */
 /**
  * Mybatis & Mapper & PageHelper 配置
  */

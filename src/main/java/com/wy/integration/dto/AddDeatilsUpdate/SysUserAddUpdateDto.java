@@ -1,11 +1,15 @@
-package com.wy.integration.dto;
+package com.wy.integration.dto.AddDeatilsUpdate;
 
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.persistence.Column;
+import java.util.List;
 
-public class SysUserAddDto {
+/**
+ * @author : edward
+ * @since : 7/12/2018
+ */
+public class SysUserAddUpdateDto {
 
     /**
      * 登录名
@@ -50,6 +54,16 @@ public class SysUserAddDto {
      */
     @ApiModelProperty(value = "更新所用 主键")
     private String id;
+    @ApiModelProperty(value = "角色")
+    private List<UserRoleDto> roleList;
+
+    public List<UserRoleDto> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<UserRoleDto> roleList) {
+        this.roleList = roleList;
+    }
 
     public String getOrgId() {
         return orgId;

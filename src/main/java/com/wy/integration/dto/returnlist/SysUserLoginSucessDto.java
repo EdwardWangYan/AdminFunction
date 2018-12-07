@@ -2,7 +2,10 @@ package com.wy.integration.dto.returnlist;
 
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
-
+/**
+ * @author : edward
+ * @since : 7/12/2018
+ */
 public class SysUserLoginSucessDto {
 
     /**

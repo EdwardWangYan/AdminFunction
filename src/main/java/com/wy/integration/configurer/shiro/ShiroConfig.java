@@ -1,6 +1,5 @@
 package com.wy.integration.configurer.shiro;
 
-import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.SessionManager;
@@ -29,7 +28,10 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
+/**
+ * @author : edward
+ * @since : 7/12/2018
+ */
 @Configuration
 public class ShiroConfig {
 
@@ -228,9 +230,18 @@ public class ShiroConfig {
 
 	private static void addDefaultAnonUrl(List<String> anonUrl) {
 		anonUrl.add("/**/favicon.ico");
+		//日志
 		anonUrl.add("/sysLog/**");
+		//用户
 		anonUrl.add("/sysUser/**");
+		//机构
 		anonUrl.add("/sysOrginfo/**");
+		//权限
+		anonUrl.add("/sysPermission/**");
+		//角色
+		anonUrl.add("/sysRoleinfo/**");
+		//资源
+		anonUrl.add("/sysResource/**");
 	}
 
 	private static void addAnonUrl4Test(List<String> anonUrl) {

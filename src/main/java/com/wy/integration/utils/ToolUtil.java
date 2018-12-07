@@ -2,11 +2,14 @@ package com.wy.integration.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
+import com.wy.integration.dto.AddDeatilsUpdate.SysResourceAddUpdateDto;
 import com.wy.integration.model.SysUser;
 import com.xiaoleilu.hutool.http.HttpUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeansException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.beans.BeanInfo;
@@ -242,6 +245,16 @@ public class ToolUtil {
 		return resultMap;
 	}
 
+	public static Object copyProperties(Object source,  Class toClazz)  {
+       try {
+		   Object to = toClazz.newInstance();
+		   BeanUtils.copyProperties(source, to);
+		   return to;
+	   }catch ( IllegalAccessException|InstantiationException e){
+         	e.getMessage();
+	   }
+	   return null;
+	}
 
 	public static void main(String args[]) throws Exception {
 

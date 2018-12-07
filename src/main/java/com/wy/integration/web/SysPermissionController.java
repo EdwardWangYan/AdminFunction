@@ -1,16 +1,15 @@
 package com.wy.integration.web;
 import com.wy.integration.core.Result;
 import com.wy.integration.core.ResultGenerator;
+import com.wy.integration.dto.AddDeatilsUpdate.SysPermissionAddUpdateDto;
 import com.wy.integration.model.SysPermission;
 import com.wy.integration.service.SysPermissionService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import com.wy.integration.utils.ResPonseUtils.RestfulApiResponse;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -20,15 +19,16 @@ import java.util.List;
 * Created by Edward on 2018/12/04.
 */
 @RestController
-@RequestMapping("syspermission")
+@RequestMapping("sysPermission")
+@Api(description = "权限管理")
 public class SysPermissionController {
     @Resource
     private SysPermissionService sysPermissionService;
 
-    @ApiOperation("")
-    @RequestMapping(value = "add", method = RequestMethod.POST)
-    public RestfulApiResponse<Integer> add(SysPermission sysPermission) {
-        return RestfulApiResponse.success("",  sysPermissionService.save(sysPermission));
+    @ApiOperation("配置权限 后台使用")
+    @RequestMapping(value = "addPermission", method = RequestMethod.POST)
+    public RestfulApiResponse<Integer> addPermission(@RequestBody SysPermissionAddUpdateDto sysPermission) {
+        return RestfulApiResponse.success("新增成功",  sysPermissionService.addPermission(sysPermission));
     }
 
     @ApiOperation("")

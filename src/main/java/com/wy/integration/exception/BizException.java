@@ -3,7 +3,10 @@ package com.wy.integration.exception;
 import com.wy.integration.exception.ErrCode.ErrorCode;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-
+/**
+ * @author : edward
+ * @since : 7/12/2018
+ */
 public class BizException extends RuntimeException {
     private String code;  //错误码
 

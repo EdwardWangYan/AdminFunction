@@ -1,6 +1,6 @@
-package com.wy.integration.dto.contion;
+package com.wy.integration.dto.condition;
 
-import com.wy.integration.dto.contion.page.PaginationRequest;
+import com.wy.integration.dto.condition.page.PaginationRequest;
 import io.swagger.annotations.ApiModelProperty;
 
 public class SysUserContionDto extends PaginationRequest {

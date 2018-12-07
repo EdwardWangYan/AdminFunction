@@ -21,8 +21,6 @@ import javax.annotation.Resource;
 @Service
 @Transactional
 public class SysOrgInfoServiceImpl extends AbstractService<SysOrgInfo> implements SysOrgInfoService {
-    @Resource
-    private SysOrgInfoMapper sysOrgInfoMapper;
 
 
     @Autowired

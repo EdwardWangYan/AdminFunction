@@ -1,15 +1,16 @@
 package com.wy.integration.configurer.handler;
 
-import com.wy.integration.core.Result;
 import com.wy.integration.exception.BizException;
-import com.wy.integration.utils.ApiResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * @author : edward
+ * @since : 7/12/2018
+ */
 @RestControllerAdvice
 public class MyExceptionHandler {
 

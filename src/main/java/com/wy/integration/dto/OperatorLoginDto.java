@@ -4,8 +4,8 @@ import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
- * @author : tac
- * @since : 06/09/2017
+ * @author : edward
+ * @since : 7/12/2018
  */
 public class OperatorLoginDto {
     @ApiModelProperty(value = "用户名", required = true, example = "admin01")

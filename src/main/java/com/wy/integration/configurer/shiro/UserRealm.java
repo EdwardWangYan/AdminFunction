@@ -23,7 +23,7 @@ import java.io.Serializable;
 /**
  * 验证用户登录
  * 
- * @author Administrator
+ * @author edward
  */
 @Component("userRealm")
 public class UserRealm extends AuthorizingRealm {

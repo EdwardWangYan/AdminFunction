@@ -5,7 +5,10 @@ package com.wy.integration.exception.ErrCode.ErrorMessage;
 import com.wy.integration.exception.ErrCode.ErrorCode;
 
 import java.util.HashMap;
-
+/**
+ * @author : edward
+ * @since : 7/12/2018
+ */
 public class ErrorMessage {
     private HashMap<ErrorCode, String> zh = new HashMap();
 

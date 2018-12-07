@@ -5,6 +5,9 @@ import com.wy.integration.core.AbstractService;
 import com.wy.integration.core.Mapper;
 import com.wy.integration.core.Service;
 import com.wy.integration.core.ServiceException;
+import com.wy.integration.exception.ErrCode.CMMErrorCode;
+import com.wy.integration.exception.ResponseException;
+import com.wy.integration.utils.ToolUtil;
 import com.wy.integration.utils.support.DaoSupports;
 import org.apache.ibatis.exceptions.TooManyResultsException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,7 @@ import tk.mybatis.mapper.entity.Example;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -41,6 +45,7 @@ public abstract class BaseService<T>  implements Service<T> {
 
 
 
+
     public int deleteBy(String id) {
         T model= this.findByIdDel(id);
         DaoSupports.deleteProperty(model);
@@ -48,7 +53,10 @@ public abstract class BaseService<T>  implements Service<T> {
     } //适用于逻辑删除
 
     public int save(List<T> models) {
-        models.forEach(t-> DaoSupports.addProperty(t));
+        models.forEach(t-> {
+            DaoSupports.addOrgId(t);
+            DaoSupports.addProperty(t);
+        });
         return mapper.insertList(models);
     }//批量插入
 
@@ -100,6 +108,22 @@ public abstract class BaseService<T>  implements Service<T> {
         }
     }
 
+    public T findByListFieldName(List<String> fieldNameList, List<Object> valueList) throws TooManyResultsException {
+        try {
+            T model = this.newEntityInstance();
+            for (int i = 0; i < fieldNameList.size(); i++) {
+                String fieldName = fieldNameList.get(i);
+                Object value = valueList.get(i);
+                Field field = modelClass.getDeclaredField(fieldName);
+                field.setAccessible(true);
+                field.set(model, value);
+            }
+            return mapper.selectOne(model);
+        } catch (ReflectiveOperationException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+    }
+
     public List<T> findByIds(String ids) {
         return mapper.selectByIds(ids);
     }
@@ -119,4 +143,24 @@ public abstract class BaseService<T>  implements Service<T> {
     public List<T> findAll() {
         return mapper.selectAll();
     }
+
+
+    /**
+     * 验证名称是否重复
+     */
+    protected boolean existName(List<String> fieldNameList, List<Object> valueList) {
+        return  findByListFieldName(fieldNameList,valueList)!=null;
+        }
+
+
+
+
+    /**
+     * 验证名称是否重复  同一机构下的比较
+     */
+    protected void throwIfExistAccount(String fieldName,String roleName) {
+        if (existName(  Arrays.asList("orgId",fieldName),Arrays.asList(  DaoSupports.getOrgId(),roleName)))
+                throw new ResponseException(CMMErrorCode.ENTITY_IS_EXIST);
+        }
+
 }

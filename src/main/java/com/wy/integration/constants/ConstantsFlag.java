@@ -25,7 +25,18 @@ package com.wy.integration.constants;
  */
 public class ConstantsFlag {
 
+    public enum FLAG {
+        ZERO(0);
+        public Integer value;
 
+        FLAG(Integer value) {
+            this.value = value;
+        }
+
+        public Integer getValue() {
+            return value;
+        }
+    }
 
     public enum IsDeleteFlag {
         NotDeleted(0),
@@ -54,6 +65,35 @@ public class ConstantsFlag {
 
         public Integer getValue() {
             return value;
+        }
+    }
+
+    public enum ResourceLevel {
+        MODULE(1, null, "模块"),
+        MENU(2, MODULE, "菜单"),
+        PAGE(3, MENU, "页面"),
+        OPERATION(4, PAGE, "操作"),;
+
+        private int val;
+        private ResourceLevel parent;
+        private String desc;
+
+        public int getVal() {
+            return val;
+        }
+
+        public ResourceLevel getParent() {
+            return parent;
+        }
+
+        public String getDesc() {
+            return desc;
+        }
+
+        ResourceLevel(int val, ResourceLevel parent, String desc) {
+            this.val = val;
+            this.parent = parent;
+            this.desc = desc;
         }
     }
 

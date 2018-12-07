@@ -1,8 +1,8 @@
 package com.wy.integration.service;
 import com.github.pagehelper.PageInfo;
 import com.wy.integration.dto.OperatorLoginDto;
-import com.wy.integration.dto.SysUserAddDto;
-import com.wy.integration.dto.contion.SysUserContionDto;
+import com.wy.integration.dto.AddDeatilsUpdate.SysUserAddUpdateDto;
+import com.wy.integration.dto.condition.SysUserContionDto;
 import com.wy.integration.dto.returnlist.SysUserLoginSucessDto;
 import com.wy.integration.model.SysUser;
 import com.wy.integration.core.Service;
@@ -16,7 +16,7 @@ public interface SysUserService extends Service<SysUser> {
     /**
      * 用于系统后台新增用户
      * **/
-    public int add(SysUserAddDto userAddDto);
+    public int add(SysUserAddUpdateDto userAddDto);
 
     /**
      * 新增机构的时候  初始化机构用户
@@ -26,7 +26,7 @@ public interface SysUserService extends Service<SysUser> {
     /**
      * 用于系统后台更新用户信息
      * **/
-    public int updateUser(SysUserAddDto userAddDto);
+    public int updateUser(SysUserAddUpdateDto userAddDto);
     /**
      * 根据条件  查找用户
      * **/
