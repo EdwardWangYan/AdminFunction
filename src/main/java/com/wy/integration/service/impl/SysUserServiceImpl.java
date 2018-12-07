@@ -146,6 +146,7 @@ public class SysUserServiceImpl extends AbstractService<SysUser> implements SysU
             createCriteria.andLike("loginName","%" + StringUtils.trim(dto.getLoginNameOrEmail()) + "%");
             createCriteria.orLike("email","%" + StringUtils.trim(dto.getLoginNameOrEmail()) + "%");
         }
+
         List<SysUser> userList=findByConditionDel(condition,createCriteria);
         return   new PageInfo(userList);
     }

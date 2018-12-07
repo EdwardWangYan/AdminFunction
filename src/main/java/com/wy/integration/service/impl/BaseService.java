@@ -131,6 +131,7 @@ public abstract class BaseService<T>  implements Service<T> {
     //逻辑删除 走此接口
     public List<T> findByConditionDel(Condition conditio, Example.Criteria createCriteria){
         createCriteria.andEqualTo("delFlag", ConstantsFlag.IsDeleteFlag.NotDeleted.getValue());
+        createCriteria.andEqualTo("orgId",DaoSupports.getOrgId());
         return this.findByCondition(conditio);
     }
 
